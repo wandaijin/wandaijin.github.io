@@ -52,6 +52,11 @@ bundle show minima
   jekyll serve
   ```
 
+* 创建文章草稿
+  1. 新建目录_drafts
+  2. 在目录中新建文档，使用命令`jekyll serve --drafts`或者`jekyll serve --build`进行预览
+
+
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
 [jekyll-talk]: https://talk.jekyllrb.com/
