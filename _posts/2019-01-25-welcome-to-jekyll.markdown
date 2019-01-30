@@ -1,24 +1,56 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
+title:  "Jekyll CheatSheet"
 date:   2019-01-25 16:54:13 +0800
 categories: jekyll update
 ---
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+* 创建站点
+  1. [安装ruby开发环境](https://jekyllrb.com/docs/installation/)
 
-Jekyll also offers powerful support for code snippets:
+  2. 安装jekyll和bundler
+  ```bash
+  gem install jekyll bundler
+  ```
+  3. 创建新的站点 _myblog_
+  ```bash
+  jekyll new myblog
+  ```
+  4. 进入站点目录运行站点
+  ```bash
+  $ cd myblog
+  $ bundle exec jekyll serve
+  ```
 
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
+* 本地构建启动服务
+```bash
+jekyll serve
+```
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+* 查找主题目录位置
+```bash
+bundle show minima
+```
+
+* 安装使用新主题
+  1. 更改站点Gemfile文件:
+  ```bash
+  # ./Gemfile
+  # This is an example, declare the theme gem you want to use here
+  gem "jekyll-theme-cayman"
+  ```
+  2. 安装主题
+  ```bash
+  bundle install
+  ```
+  3. 修改站点_config.yml文件：
+  ```bash
+  theme: jekyll-theme-cayman
+  ```
+  4. 构建站点
+  ```bash
+  jekyll serve
+  ```
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll

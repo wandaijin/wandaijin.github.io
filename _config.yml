@@ -25,7 +25,7 @@ github_username:  wandaijin
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-cayman
+theme: minima
 # Minima date format
 # refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
 minima:
