@@ -2,7 +2,7 @@
 layout: post
 title:  "C语言中include指令的区别"
 date:   2019-01-30 14:12:13 +0800
-categories: languge c
+categories: languge clang
 ---
 
 在进行C语言编程是常常需要使用include指令引入已有的头文件，以便重用已有的函数。include有两种形式，一种使用`#include <file>`，一种使用`#include "file"`，两种的区别在于查找的目录不一样。
@@ -16,9 +16,10 @@ categories: languge c
   首先在当前文件的目录查找，然后在预定义的系统目录中查找文件。
 
 
-可以通过命令`cpp -v /dev/null -o /dev/null`查看当前系统的查找顺序。例如：
+预定义的系统目录可以通过命令`cpp -v /dev/null -o /dev/null`查看。例如：
 
-```shell
+```shellls
+
 $ cpp -v /dev/null -o /dev/null
 ··········
 #include "..." search starts here:
@@ -31,6 +32,14 @@ $ cpp -v /dev/null -o /dev/null
 ············
 ```
 
-#### 参考
+#### 相关问题
+
+使用CLion进行编译时，CMake报错
+> fatal error: 'stdio.h' file not found
+
+编辑项目下面的CMakeLists.txt文件，在文件中增加头文件目录即可，目录的查找方式参见上面的指令
+>include_directories(path/to/the/file)
+
+#### 参考:
 * [https://gcc.gnu.org/onlinedocs/cpp/Include-Syntax.html](https://gcc.gnu.org/onlinedocs/cpp/Include-Syntax.html)
 * [https://gcc.gnu.org/onlinedocs/cpp/Search-Path.html](https://gcc.gnu.org/onlinedocs/cpp/Search-Path.html)
