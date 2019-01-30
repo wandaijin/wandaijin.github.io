@@ -1,0 +1,36 @@
+---
+layout: post
+title:  "C语言中include指令的区别"
+date:   2019-01-30 14:12:13 +0800
+categories: languge c
+---
+
+在进行C语言编程是常常需要使用include指令引入已有的头文件，以便重用已有的函数。include有两种形式，一种使用`#include <file>`，一种使用`#include "file"`，两种的区别在于查找的目录不一样。
+
+* #include <file\>
+
+  在预定义的系统目录中查找文件。
+
+* #include "file"
+
+  首先在当前文件的目录查找，然后在预定义的系统目录中查找文件。
+
+
+可以通过命令`cpp -v /dev/null -o /dev/null`查看当前系统的查找顺序。例如：
+
+```shell
+$ cpp -v /dev/null -o /dev/null
+··········
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/local/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include
+ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks (framework directory)
+············
+```
+
+#### 参考
+* [https://gcc.gnu.org/onlinedocs/cpp/Include-Syntax.html](https://gcc.gnu.org/onlinedocs/cpp/Include-Syntax.html)
+* [https://gcc.gnu.org/onlinedocs/cpp/Search-Path.html](https://gcc.gnu.org/onlinedocs/cpp/Search-Path.html)
