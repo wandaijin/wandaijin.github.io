@@ -1,0 +1,28 @@
+---
+layout: post
+title:  "dpkg命令实例"
+categories: server dpkg
+---
+
+dpkg是Debian系的包管理系统，dpkg是一个文本文件数据库，数据文本位于/var/lib/dpkg目录下。dpkg是底层工具，没有软件源的概念。Ubuntu的APT是高层工作，使用dpkg做支撑。在Redhat系中与dpkg的是rpm，与APT对应的是YUM。
+
+* 查询系统所有已安装的软件
+``` bash
+dpkg -l    #rpm -qa
+```
+* 查询某软件包所有文件
+``` bash
+dpkg -L bash   #rpm -ql bash
+```
+* 查询文件属于哪个软件包
+``` bash
+dpkg -S /etc/host.conf    #rpm -qf /etc/host.conf
+```
+* 查询软件包的详情
+``` bash
+dpkg -s openvpn   #rpm -qi openvpn
+```
+
+#### 引用
+1. [https://help.ubuntu.com/lts/serverguide/dpkg.html](https://help.ubuntu.com/lts/serverguide/dpkg.html)
+2. [https://en.wikipedia.org/wiki/Dpkg](https://en.wikipedia.org/wiki/Dpkg)
