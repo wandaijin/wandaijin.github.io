@@ -1,5 +1,8 @@
 ---
 layout: post
-title:  "IRC"
-categories: chat irc
+title:  "Openvpn"
+categories: linux openvpn
 ---
+
+1. 安装
+2. 配置
