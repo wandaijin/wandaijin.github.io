@@ -12,3 +12,8 @@ linux下对文本流处理的软件有sed和awk，sed基本以行为单位来处
 - 删除指定行数
 - 字符串替换
 - 使用正则表达式进行字符串替换
+
+
+### 参考资料
+1. [https://www.ibm.com/developerworks/cn/linux/shell/awk/awk-1/index.html](https://www.ibm.com/developerworks/cn/linux/shell/awk/awk-1/index.html)
+2. [https://en.wikipedia.org/wiki/AWK](https://en.wikipedia.org/wiki/AWK)

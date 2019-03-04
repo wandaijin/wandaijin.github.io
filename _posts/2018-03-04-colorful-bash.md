@@ -19,5 +19,5 @@ $ grep --color root /etc/passwd
 ```
 
 
-#### 引用
+### 参考资料
 1. [https://misc.flogisoft.com/bash/tip_colors_and_formatting](https://misc.flogisoft.com/bash/tip_colors_and_formatting)
