@@ -33,6 +33,7 @@ minima:
 plugins:
   - jekyll-feed
 
+google_analytics: UA-135625451-1
 
 
 # Exclude from processing.
