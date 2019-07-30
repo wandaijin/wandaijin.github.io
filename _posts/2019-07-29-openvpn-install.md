@@ -11,8 +11,9 @@ categories: how-to openvpn
 Ubuntu 18.04.2 LTS  \n \l
 # apt-get update && apt-get -y install openvpn
 # cd ~
-# wget https://raw.githubusercontent.com/OpenVPN/openvpn/2b8aec62d5db2c17d5d4052991bc18272748bf29/sample/sample-config-files/server.conf
+# wget -P https://raw.githubusercontent.com/OpenVPN/openvpn/2b8aec62d5db2c17d5d4052991bc18272748bf29/sample/sample-config-files/server.conf
 # mv server.conf /etc/openvpn/
+# sed -i -e 's!port 1194!port 11094!g' /etc/openvpn/server.conf
 # sed -i -e 's!ca ca.crt!ca /etc/openvpn/server/ca.crt!g' /etc/openvpn/server.conf
 # sed -i -e 's!cert server.crt!cert /etc/openvpn/server/server.crt!g' /etc/openvpn/server.conf
 # sed -i -e 's!key server.key!key /etc/openvpn/server/server.key!g' /etc/openvpn/server.conf
@@ -44,7 +45,7 @@ Ubuntu 18.04.2 LTS  \n \l
 
 ```bash
 # cd ~
-# wget -P ~/ https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.6/EasyRSA-unix-v3.0.6.tgz
+# wget -P https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.6/EasyRSA-unix-v3.0.6.tgz
 # tar xvf EasyRSA-unix-v3.0.6.tgz
 # cd EasyRSA-v3.0.6/
 # cp vars.example vars
@@ -72,6 +73,7 @@ Ubuntu 18.04.2 LTS  \n \l
 # ./easyrsa gen-req server nopass
 # ./easyrsa sign-req server server
 # ./easyrsa gen-dh
+# openvpn --genkey --secret ta.key
 # cp ~/EasyRSA-v3.0.6/pki/dh.pem ~/EasyRSA-v3.0.6/pki/ca.crt ~/EasyRSA-v3.0.6/pki/issued/server.crt ~/EasyRSA-v3.0.6/pki/private/server.key ~/EasyRSA-v3.0.6/ta.key  /etc/openvpn/server # copy 5 files to config dir
 ```
 
@@ -96,7 +98,7 @@ Ubuntu 18.04.2 LTS  \n \l
 # ./easyrsa sign-req client my-client
 # mkdir -p ~/vpn-client-config/my-client
 # cp ~/EasyRSA-v3.0.6/pki/issued/my-client.crt ~/EasyRSA-v3.0.6/pki/private/my-client.key ~/EasyRSA-v3.0.6/pki/ca.crt ~/EasyRSA-v3.0.6/ta.key ~/vpn-client-config/my-client
-# cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/vpn-client-config/my-client
+# wget -P https://raw.githubusercontent.com/OpenVPN/openvpn/2b8aec62d5db2c17d5d4052991bc18272748bf29/sample/sample-config-files/client.conf
 # cd ~/vpn-client-config/my-client
 # sed -i -e 's/remote my-server-1 1194/remote ip 1194/g' client.conf #your ownip or servername and port
 # sed -i -e 's/cert client.crt/cert my-client.crt/g' client.conf
