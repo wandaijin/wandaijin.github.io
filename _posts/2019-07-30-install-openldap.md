@@ -128,8 +128,6 @@ changetype: delete
 # ldapsearch -x  -D "cn=admin,dc=wdan,dc=ltd" -b "cn=user01,ou=People,dc=wdan,dc=ltd" -w ldap
 ```
 
-ldapwhoami -x -w "@secret" -D "cn=user01,ou=People,dc=wdan,dc=ltd" -ZZ -H ldapi:///
-
 10. 启用新模块
 
 ```bash
