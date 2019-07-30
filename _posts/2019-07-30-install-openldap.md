@@ -56,6 +56,7 @@ olcDbMaxSize: 1073741824
 ```
 
 4. 创建条目
+
 ```bash
 # cat base.ldif
 dn: dc=wdan,dc=ltd
@@ -135,6 +136,7 @@ changetype: delete
 ```
 
 11. 查看加载的模块
+
 ```bash
 # ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/// -b cn=config nsa*
 ```
