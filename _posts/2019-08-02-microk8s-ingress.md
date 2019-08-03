@@ -29,15 +29,17 @@ spec:
 EOF
 ```
 
-3. 创建ingress，配置rule把流量重定向至指定服务
+3. 创建ingress，配置rule把流量重定向至指定服务。ingress允许使用不同厂商[controller实现](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/)
 
 ``` bash
-# crok8s.kubectl get ingress
+# microk8s.kubectl get ingress
 # cat <<EOF | microk8s.kubectl apply -f -
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: web-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
 spec:
   rules:
   - host: demo.example.com
