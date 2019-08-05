@@ -131,7 +131,7 @@ spec:
     - hosts:
       - demo.example.com
       # This assumes acme-crt-secret exists and the SSL
-      # certificate contains a CN for foo.bar.com
+      # certificate contains a CN for demo.example.com
       secretName: acme-crt-secret
   rules:
     - host: demo.example.com
