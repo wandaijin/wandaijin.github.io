@@ -40,12 +40,13 @@ metadata:
   name: web-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
   - host: demo.example.com
     http:
       paths:
-      - path: /web
+      - path: /web(/|$)(.*)
         backend:
           serviceName: my-web
           servicePort: 80
