@@ -107,6 +107,24 @@ Ubuntu 18.04.2 LTS  \n \l
 # tar -cvf config.tar ~/vpn-client-config/my-client/*
 ```
 
+5. 使用EasyRSA撤销证书
+
+CA端
+```bash
+# cd ~/EasyRSA-v3.0.6/
+# ./easyrsa revoke my-client
+# ./easyrsa gen-crl yinyong
+# scp ./pki/crl.pem user@serverip:/etc/openvpn/ # 拷贝文件到服务器
+
+```
+
+OpenVPN服务器端
+```bash
+# ls /etc/openvpn/crl.pem
+# echo "crl-verify /etc/openvpn/crl.pem" >> /etc/openvpn/server.conf
+# service openvpn restart
+```
+
 ### 参考资料
 https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-18-04
 https://github.com/OpenVPN/easy-rsa/blob/master/doc/EasyRSA-Readme.md
