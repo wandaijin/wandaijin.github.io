@@ -113,17 +113,20 @@ CA端
 ```bash
 # cd ~/EasyRSA-v3.0.6/
 # ./easyrsa revoke my-client
-# ./easyrsa gen-crl yinyong
+# ./easyrsa gen-crl
 # scp ./pki/crl.pem user@serverip:/etc/openvpn/ # 拷贝文件到服务器
 
 ```
 
 OpenVPN服务器端
 ```bash
+# cd ~/EasyRSA-v3.0.6/
+# vi pki/index.txt # 将对应的文件行首字母“R”改为”V”
 # ls /etc/openvpn/crl.pem
 # echo "crl-verify /etc/openvpn/crl.pem" >> /etc/openvpn/server.conf
 # service openvpn restart
 ```
+
 
 ### 参考资料
 https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-18-04
