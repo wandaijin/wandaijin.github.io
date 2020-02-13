@@ -1,0 +1,28 @@
+---
+layout: post
+title:  "Android Wireless Debugging"
+categories: android bootloader
+---
+
+使用WLAN连接设备进行调试
+
+1. 保证设备和电脑处于同一个局域网中，并且可以相互联通(可能需要)
+2. 使用 USB 数据线将设备连接到主机。
+3. 设置目标设备以监听端口 5555 上的 TCP/IP 连接， `adb tcpip 5555`。然后可以断开USB连接
+4. 找到 Android 设备的 IP 地址。如下两种方法
+  - `adb shell ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}'`
+  - 在设备中的`设置->WLAN`网络设置中查看
+5. 通过 IP 地址连接到设备。
+  `adb connect device_ip_address:5555`
+6. 确认主机已连接到目标设备。
+  `adb devices`
+
+注意：
+
+如果adb连接断开，可以通过`adb connect device_ip_address:5555`重新连接。
+如果上述操作未解决问题，重置adb主机` adb kill-server`, 然后重新开始
+
+
+### 参考资料
+1. https://developer.android.com/tools/help/adb.html#wireless
+2. https://developer.android.google.cn/tools/help/adb.html#wireless
