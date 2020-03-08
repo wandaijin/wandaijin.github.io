@@ -127,6 +127,18 @@ OpenVPN服务器端
 # service openvpn restart
 ```
 
+6. 在服务器启动，端口网络正常的情况下。使用系统`journalctl`命令查看日志, 例如crl过期的问题
+
+```bash
+# journalctl  -f | grep vpn
+...
+Mar 08 14:49:46 hostname ovpn-server[21618]: ***:32309 VERIFY ERROR: depth=0, error=CRL has expired: CN=***
+...
+```
+
+解决方式：`./easyrsa gen-crl`
+
+
 
 ### 参考资料
 https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-18-04

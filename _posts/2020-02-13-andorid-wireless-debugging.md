@@ -25,6 +25,13 @@ adb tcpip 5555
 adb connect $(adb shell ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}' | cut -d: -f2):5555
 ```
 
+### 查看连接的设备，并发送命令到指定设备(serial_number是`adb devices`命令的第一列)
+
+```
+adb devices [-l]
+adb [-d | -e | -s serial_number] command
+```
+
 注意：
 如果adb连接断开，可以通过`adb connect device_ip_address:5555`重新连接。
 如果上述操作未解决问题，重置adb主机`adb kill-server`, 然后重新开始
