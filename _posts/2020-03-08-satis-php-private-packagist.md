@@ -10,6 +10,35 @@ satis是一款轻量级的PHP包管理工具。
 ```
 vi satis.json
 ```
+- 权限设置
+```json
+  {
+    "repositories": [{
+      "type": "composer",
+      "url": "ssh2.sftp://example.org",
+      "options": {
+        "ssh2": {
+          "username": "composer",
+          "pubkey_file": "/home/composer/.ssh/id_rsa.pub",
+          "privkey_file": "/home/composer/.ssh/id_rsa"
+        }
+      }
+    }]
+  }
+```
+
+- 库设置，设置指定的库，不使用`"require-all": true`
+```json
+  {
+      "repositories": [
+        { "type": "vcs", "url": "https://github.com/mycompany/privaterepo" }
+      ],
+      "require": {
+        "company/package": "*"
+      }
+  }
+```
+
 2. 构建
 ```
 php bin/satis build satis.json output
