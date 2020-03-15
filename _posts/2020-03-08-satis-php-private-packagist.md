@@ -13,7 +13,11 @@ vi satis.json
 - 权限设置
 ```json
   {
-    "repositories": [{
+    "repositories": [
+      {
+          "packagist": false
+      },
+      {
       "type": "composer",
       "url": "ssh2.sftp://example.org",
       "options": {
@@ -23,14 +27,18 @@ vi satis.json
           "privkey_file": "/home/composer/.ssh/id_rsa"
         }
       }
-    }]
+    }],
+    "require-all": true
   }
 ```
 
-- 库设置，设置指定的库，不使用`"require-all": true`
+- 库设置，设置指定的库，不使用`"require-all": true`, 非镜像站点使用`"packagist": false` 静止加载 packagist 中的包
 ```json
   {
       "repositories": [
+        {
+            "packagist": false
+        },
         { "type": "vcs", "url": "https://github.com/mycompany/privaterepo" }
       ],
       "require": {
@@ -42,6 +50,10 @@ vi satis.json
 2. 构建
 ```
 php bin/satis build satis.json output
+```
+
+```
+php bin/satis build  --repository-url [yoururl] satis.json output
 ```
 
 3. 使用
@@ -58,3 +70,4 @@ php bin/satis build satis.json output
 ### 参考资料
 https://getcomposer.org/doc/articles/handling-private-packages-with-satis.md
 https://github.com/composer/satis
+https://github.com/AOEpeople/composer-satis-builder#example
