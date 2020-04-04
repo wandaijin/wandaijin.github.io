@@ -46,7 +46,7 @@ spec:
   - host: demo.example.com
     http:
       paths:
-      - path: /web($|/|/.*)
+      - path: /web(?:/|$)(.*)
         backend:
           serviceName: my-web
           servicePort: 80
@@ -63,6 +63,8 @@ $ microk8s.kubectl get ingress
 $ microk8s.kubectl describe ingress # 查看ingress详情
 $ microk8s.kubectl edit ingress #编辑ingress
 ```
+
+*注意* `/web($|/$|/.*)` 会导致后端应用收到的请求地址path前面会增加一个"/", 变成"//..."的形式
 
 ### 参考资料
 https://kubernetes.io/docs/concepts/services-networking/ingress/
