@@ -9,7 +9,7 @@ categories: microk8s ingress
 ```bash
 $ microk8s.kubectl get ingress
 $ microk8s.kubectl describe ingress # 查看ingress详情
-$ microk8s.kubectl get pods -A
+$ microk8s.kubectl get pods -A -o wide
 ...
 nginx-ingress-microk8s-controller-7hssx   1/1     Running   87         246d
 ...
