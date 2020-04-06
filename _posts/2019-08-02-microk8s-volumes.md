@@ -11,8 +11,8 @@ microk8s是通过k8s认证的，下文所有的概念和操作均为k8s的概念
 Storage Classes是一组设置，在创建PersistentVolume时需要使用。provisioner指定存储设备提供方式，可以是本地磁盘，也可以是云提供商等其他方式。具体方式可以参考[官方网站](https://kubernetes.io/docs/concepts/storage/storage-classes/)。
 
 ```bash
-# microk8s.kubectl get storageclass
-# cat <<EOF | microk8s.kubectl apply -f -
+$ microk8s.kubectl get storageclass
+$ cat <<EOF | microk8s.kubectl apply -f -
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -20,18 +20,18 @@ metadata:
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 EOF
-# microk8s.kubectl get storageclass #查看列表
-# microk8s.kubectl patch storageclass local-storage -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}' #设为默认
-# microk8s.kubectl get storageclass #查看列表
-# microk8s.kubectl patch storageclass local-storage -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}' #取消默认设置
+$ microk8s.kubectl get storageclass #查看列表
+$ microk8s.kubectl patch storageclass local-storage -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}' #设为默认
+$ microk8s.kubectl get storageclass #查看列表
+$ microk8s.kubectl patch storageclass local-storage -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}' #取消默认设置
 ```
 
 2. 创建PersistentVolume
 
 ```bash
-# microk8s.kubectl get pv
-# mkdir -p /data/k8s-pv/pv001
-# cat <<EOF | microk8s.kubectl apply -f -
+$ microk8s.kubectl get pv
+$ mkdir -p /data/k8s-pv/pv001
+$ cat <<EOF | microk8s.kubectl apply -f -
 kind: PersistentVolume
 apiVersion: v1
 metadata:
@@ -48,14 +48,14 @@ spec:
   hostPath:
     path: "/data/k8s-pv/pv001"
 EOF
-# microk8s.kubectl get pv
+$ microk8s.kubectl get pv
 ```
 
 3. 创建Persistent Volume Claim以便pod使用, 一个PersistentVolumeClaim只能绑定一个PersistentVolume，一个PersistentVolume也只能被一个PersistentVolumeClaim绑定。
 
 ```bash
-# microk8s.kubectl get pvc
-#cat <<EOF | microk8s.kubectl apply -f -
+$ microk8s.kubectl get pvc
+$ cat <<EOF | microk8s.kubectl apply -f -
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -68,7 +68,7 @@ spec:
     requests:
       storage: 1Gi
 EOF
-# microk8s.kubectl get pvc
+$ microk8s.kubectl get pvc
 ```
 
 4. 删除PersistentVolumeClaim, 删除PersistentVolume
@@ -76,17 +76,18 @@ EOF
 如果磁盘正在被使用，则需要先将pod删除，然后再依次删除pvc，pv。
 
 ```bash
-# microk8s.kubectl get deployment
-# microk8s.kubectl delete deployment <your-deployment>
-# microk8s.kubectl get service
-# microk8s.kubectl delete service <your-service>
-# microk8s.kubectl get pvc
-# microk8s.kubectl delete pvc pvc-web
-# microk8s.kubectl get pv
-# microk8s.kubectl delete pv pv003
+$ microk8s.kubectl get deployment
+$ microk8s.kubectl delete deployment <your-deployment>
+$ microk8s.kubectl get service
+$ microk8s.kubectl delete service <your-service>
+$ microk8s.kubectl get pvc
+$ microk8s.kubectl delete pvc pvc-web
+$ microk8s.kubectl get pv
+$ microk8s.kubectl delete pv pv003
 ```
 
 ### 参考资料
 https://kubernetes.io/docs/concepts/storage/storage-classes/
 https://kubernetes.io/docs/concepts/storage/volumes/
 https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes

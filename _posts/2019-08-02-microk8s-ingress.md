@@ -31,6 +31,8 @@ EOF
 
 3. 创建ingress，配置rule把流量重定向至指定服务。ingress允许使用不同厂商[controller实现](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/)
 
+- 多域名
+
 ``` bash
 $ microk8s.kubectl get ingress
 $ cat <<EOF | microk8s.kubectl apply -f -
@@ -40,21 +42,40 @@ metadata:
   name: web-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-  - host: demo.example.com
+  - host: demo1.example.com
     http:
       paths:
-      - path: /web(?:/|$)(.*)
-        backend:
+      - backend:
           serviceName: my-web
           servicePort: 80
-          rules:
   - host: demo2.example.com
     http:
       paths:
-      - path: /(.*)
+      - backend:
+          serviceName: my-web2
+          servicePort: 80
+EOF
+```
+
+- 多路径
+
+``` bash
+$ cat <<EOF | microk8s.kubectl apply -f -
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: web-ingress-rewrite
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - host: demo3.example.com
+    http:
+      paths:
+      - path: /web(/|$)(.*)
         backend:
           serviceName: my-web
           servicePort: 80
@@ -64,7 +85,7 @@ $ microk8s.kubectl describe ingress # 查看ingress详情
 $ microk8s.kubectl edit ingress #编辑ingress
 ```
 
-*注意* `/web($|/$|/.*)` 会导致后端应用收到的请求地址path前面会增加一个"/", 变成"//..."的形式
+*注意* nginx 多路径和多域名可以同时存在，可以创建多个ingress
 
 ### 参考资料
 https://kubernetes.io/docs/concepts/services-networking/ingress/

@@ -9,15 +9,14 @@ categories: microk8s gogs
 1. 根据已有证书生成secret
 
 ```bash
-# microk8s.kubectl create secret tls your-tls-secret --key your.key --cert your.pem
-# microk8s.kubectl get secret your-tls-secret -o yaml #check secret
+$ microk8s.kubectl create secret tls your-tls-secret --key your.key --cert your.pem
+$ microk8s.kubectl get secret your-tls-secret -o yaml #check secret
 ```
 
 2. 在ingress中使用secret
 
 ```bash
-# cat <<EOF | microk8s.kubectl apply -f -
-cat <<EOF | microk8s.kubectl apply -f -
+$ cat <<EOF | microk8s.kubectl apply -f -
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
