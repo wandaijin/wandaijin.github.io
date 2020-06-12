@@ -136,7 +136,7 @@ EOF
 5. 使用配置。在docker客户端配置密码
 
 ```
-# docker login
+# docker login registry.example.com
 Username:
 Password:
 ```

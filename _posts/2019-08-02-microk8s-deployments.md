@@ -47,6 +47,9 @@ EOF
 # microk8s.kubectl delete deployment nginx-deployment
 ```
 
+3. 环境变量注入
+https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/
 
 ### 参考资料
 https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/
