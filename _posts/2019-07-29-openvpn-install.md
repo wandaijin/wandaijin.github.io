@@ -136,9 +136,14 @@ Mar 08 14:49:46 hostname ovpn-server[21618]: ***:32309 VERIFY ERROR: depth=0, er
 ...
 ```
 
-解决方式：`./easyrsa gen-crl`
+解决方式：`./easyrsa gen-crl`, 然后将生成的crl.pem文件拷贝到服务器，覆盖原来的文件
 
 
+7. 使用openvpn作为客户端
+
+```bash
+# openvpn --config client.conf
+```
 
 ### 参考资料
 https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-18-04
