@@ -17,6 +17,10 @@ $ apt-get install ngrep
 
 `ngrep -W byline port 80`
 
+2. 过滤请求
+
+`ngrep -W byline -i "^GET |^POST " port 80`
+
 
 ### 参考资料
 1. https://en.wikipedia.org/wiki/Ngrep
