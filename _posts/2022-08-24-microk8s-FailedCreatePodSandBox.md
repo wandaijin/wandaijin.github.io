@@ -6,7 +6,7 @@ categories: microk8s
 
 ## 问题发现
 
-自建k8s时服务创建pod，查看日志发现原因是k8s.gcr.io无法连接。这里感谢一下GFW。
+自建k8s时创建pod一直不成功，查看日志发现原因是k8s.gcr.io无法连接。这里感谢一下GFW。
 
 ```bash
 $ microk8s.kubectl get events --sort-by=.metadata.creationTimestamp
