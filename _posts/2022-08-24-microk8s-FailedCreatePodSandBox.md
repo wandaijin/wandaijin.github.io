@@ -6,7 +6,7 @@ categories: microk8s
 
 ## 问题发现
 
-自建k8s时服务创建pod，查看日志发现是k8s.gcr.io无法连接。这里感谢一下GFW。
+自建k8s时服务创建pod，查看日志发现原因是k8s.gcr.io无法连接。这里感谢一下GFW。
 
 ```bash
 $ microk8s.kubectl get events --sort-by=.metadata.creationTimestamp
@@ -20,7 +20,7 @@ gcr.io/pause:3.1": failed to do request: Head https://k8s.gcr.io/v2/pause/manife
 
 ## 解决方式
 
-人工打包并导入镜像文件到k8s中去。需要注意的时镜像也有`namespace`.
+人工打包并导入镜像文件到k8s中去。需要注意的是镜像也有`namespace`。
 
 1. 打包镜像
 
