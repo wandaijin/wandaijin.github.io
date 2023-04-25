@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "microk8s FailedCreatePodSandBox k8s.gcr.io"
+title: "microk8s FailedCreatePodSandBox k8s.gcr.io"
 categories: microk8s
 ---
 
 ## 问题发现
 
-自建k8s时创建pod一直不成功，查看日志发现原因是k8s.gcr.io无法连接。这里感谢一下GFW。
+自建 k8s 时创建 pod 一直不成功，查看日志发现原因是 k8s.gcr.io 无法连接。这里感谢一下 GFW。
 
 ```bash
 $ microk8s.kubectl get events --sort-by=.metadata.creationTimestamp
@@ -20,13 +20,13 @@ gcr.io/pause:3.1": failed to do request: Head https://k8s.gcr.io/v2/pause/manife
 
 ## 解决方式
 
-人工打包并导入镜像文件到k8s中去。需要注意的是镜像也有`namespace`。
+人工打包并导入镜像文件到 k8s 中去。需要注意的是镜像也有`namespace`。
 
 1. 打包镜像
 
 ```bash
-$ docker pull mirrorgooglecontainers/pause:3.1
-$ docker tag mirrorgooglecontainers/pause:3.1 k8s.gcr.io/pause:3.1
+$ docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.1
+$ docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.1 k8s.gcr.io/pause:3.1
 $ docker save k8s.gcr.io/pause:3.1 -o pause.tar
 ```
 
@@ -35,12 +35,13 @@ $ docker save k8s.gcr.io/pause:3.1 -o pause.tar
 ```bash
 $ microk8s.ctr namespace ls
 NAME    LABELS
-default        
+default
 k8s.io
-$ microk8s.ctr -n k8s.io images import pause.tar
-$ microk8s.ctr -n k8s.io images ls
+$ microk8s.ctr --namespace k8s.io images import pause.tar
+$ microk8s.ctr --namespace k8s.io images ls
 ```
 
 ### 参考资料
+
 1. https://hub.docker.com/u/mirrorgooglecontainers
 2. https://www.zeng.dev/post/2020-containerd-image-import/
