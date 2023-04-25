@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "microk8s使用cert-manager自动管理let's encrypt证书"
+title: "microk8s使用cert-manager自动管理let's encrypt证书"
 categories: k8s microk8s
 ---
 
-1. 安装cert-manager版本0.8.1，也可以使用helm命令进行安装
+1. 安装 cert-manager 版本 0.8.1，也可以使用 helm 命令进行安装
 
 ```bash
 # microk8s.kubectl create namespace cert-manager
@@ -21,7 +21,7 @@ cert-manager-webhook-dfcbcc64b-vljnw       1/1     Running   0          53s
 ···
 ```
 
-2. 验证cert-manager是否正确安装
+2. 验证 cert-manager 是否正确安装
 
 ```bash
 # cat <<EOF > test-resources.yaml
@@ -60,9 +60,9 @@ Events:
 # rm test-resources.yaml
 ```
 
-3. 配置let's encrypt
+3. 配置 let's encrypt
 
-0.8版本与0.7版本的配置发生了变化，增加了.spec.solvers配置项目.
+0.8 版本与 0.7 版本的配置发生了变化，增加了.spec.solvers 配置项目.
 
 ```bash
 # microk8s.kubectl get clusterissuer
@@ -92,7 +92,7 @@ EOF
 # microk8s.kubectl get clusterissuer
 ```
 
-创建Certificate对象，注意：0.8版本去掉了.spec.acme, 官方文档部分地方没有及时更新。
+创建 Certificate 对象，注意：0.8 版本去掉了.spec.acme, 官方文档部分地方没有及时更新。
 
 ```bash
 # microk8s.kubectl get certificate
@@ -118,7 +118,7 @@ EOF
 ···
 ```
 
-4. ingress使用let's encrypt
+4. ingress 使用 let's encrypt
 
 ```bash
 # cat <<EOF | microk8s.kubectl apply -f -
@@ -159,6 +159,14 @@ EOF
 ...
 ```
 
+6. 卸载
+
+```bash
+# microk8s.kubectl get Issuers,ClusterIssuers,Certificates,CertificateRequests,Orders,Challenges --all-namespaces
+# microk8s.kubectl delete -f https://github.com/jetstack/cert-manager/releases/download/v0.8.1/cert-manager.yaml
+```
+
 ### 参考资料
+
 https://docs.cert-manager.io/en/latest/getting-started/install/kubernetes.html
 https://docs.cert-manager.io/en/latest/tasks/issuers/index.html
