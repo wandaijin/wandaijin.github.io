@@ -1,17 +1,17 @@
 ---
 layout: post
-title:  "microk8s使用ingress对外提供web服务"
+title: "microk8s使用ingress对外提供web服务"
 categories: microk8s ingress
 ---
 
-1. 启用ingress
+1. 启用 ingress
 
 ```bash
 $ microk8s.status #查看系统模块
 $ microk8s.enable registry ingress
 ```
 
-2. 创建服务, selector中是提供服务器pod的名称，同时暴露80端口出来
+2. 创建服务, selector 中是提供服务器 pod 的名称，同时暴露 80 端口出来
 
 ```bash
 $ cat <<EOF | microk8s.kubectl apply -f -
@@ -29,14 +29,14 @@ spec:
 EOF
 ```
 
-3. 创建ingress，配置rule把流量重定向至指定服务。ingress允许使用不同厂商[controller实现](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/)
+3. 创建 ingress，配置 rule 把流量重定向至指定服务。ingress 允许使用不同厂商[controller 实现](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/)
 
 - 多域名
 
-``` bash
+```bash
 $ microk8s.kubectl get ingress
 $ cat <<EOF | microk8s.kubectl apply -f -
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: web-ingress
@@ -61,9 +61,9 @@ EOF
 
 - 多路径
 
-``` bash
+```bash
 $ cat <<EOF | microk8s.kubectl apply -f -
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: web-ingress-rewrite
@@ -85,9 +85,10 @@ $ microk8s.kubectl describe ingress # 查看ingress详情
 $ microk8s.kubectl edit ingress #编辑ingress
 ```
 
-*注意* nginx 多路径和多域名可以同时存在，可以创建多个ingress
+_注意_ nginx 多路径和多域名可以同时存在，可以创建多个 ingress
 
 ### 参考资料
+
 https://kubernetes.io/docs/concepts/services-networking/ingress/
 https://kubernetes.github.io/ingress-nginx/examples/rewrite/
 https://www.regular-expressions.info/refcapture.html
