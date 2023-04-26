@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "microk8s使用docker安装配置gogs"
+title: "microk8s使用docker安装配置gogs"
 categories: microk8s gogs
 ---
 
-1. 创建存储卷(本地存储)，以便挂载gogs数据目录
+1. 创建存储卷(本地存储)，以便挂载 gogs 数据目录
 
 ```bash
 $ mkdir -p /data/k8s-pv/pv002
@@ -40,7 +40,7 @@ spec:
 EOF
 ```
 
-2. 创建gogs应用
+2. 创建 gogs 应用
 
 ```bash
 $ cat <<EOF | microk8s.kubectl apply -f -
@@ -76,7 +76,7 @@ spec:
 EOF
 ```
 
-3. 创建服务暴露http(3000)端口, 创建完成访问'gogs.example.com'进行页面[安装设置](https://gogs.io/docs/installation/configuration_and_run.html)
+3. 创建服务暴露 http(3000)端口, 创建完成访问'gogs.example.com'进行页面[安装设置](https://gogs.io/docs/installation/configuration_and_run.html)
 
 ```bash
 $ cat <<EOF | microk8s.kubectl apply -f -
@@ -111,10 +111,11 @@ spec:
 EOF
 ```
 
-4. 暴露ssh端口
-- 配置gogs，暴露ssh端口到集群外部
+4. 暴露 ssh 端口
 
-* 对外暴露ssh端口(172.16.13.100)
+- 配置 gogs，暴露 ssh 端口到集群外部
+
+* 对外暴露 ssh 端口(172.16.13.100)
 
 ```bash
 $ cat <<EOF | microk8s.kubectl apply -f -
@@ -135,14 +136,14 @@ spec:
 EOF
 ```
 
-* 配置_/data/k8s-pv/pv002/gogs/conf/app.ini_文件中server部分
+- 配置*/data/k8s-pv/pv002/gogs/conf/app.ini*文件中 server 部分
 
->DISABLE_SSH = false
->SSH_DOMAIN = 172.16.13.100
->SSH_PORT = 22
->SSH_LISTEN_PORT = 22
+> DISABLE_SSH = false
+> SSH_DOMAIN = 172.16.13.100
+> SSH_PORT = 22
+> SSH_LISTEN_PORT = 22
 
-- 配置gogs，暴露ssh端口到集群内部（使用headless和dns）
+- 配置 gogs，暴露 ssh 端口到集群内部（使用 headless 和 dns）
 
 ```bash
 $ cat <<EOF | microk8s.kubectl apply -f -
@@ -161,17 +162,15 @@ spec:
 EOF
 ```
 
-* 配置_/data/k8s-pv/pv002/gogs/conf/app.ini_文件中server部分
+- 配置*/data/k8s-pv/pv002/gogs/conf/app.ini*文件中 server 部分
 
->DISABLE_SSH = false
->SSH_DOMAIN = gogs-ssh.default.svc.cluster.local
->SSH_PORT = 22
->SSH_LISTEN_PORT = 22
-
-
-
+> DISABLE_SSH = false
+> SSH_DOMAIN = gogs-ssh.default.svc.cluster.local
+> SSH_PORT = 22
+> SSH_LISTEN_PORT = 22
 
 ### 参考资料
+
 https://gogs.io/docs/installation
 https://gogs.io/docs/advanced/configuration_cheat_sheet
 https://github.com/gogs/gogs/blob/master/conf/app.ini

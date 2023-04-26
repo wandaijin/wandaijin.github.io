@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "microk8s部署私有registry，并使用htpasswd设置http认证"
+title: "microk8s部署私有registry，并使用htpasswd设置http认证"
 categories: k8s microk8s
 ---
 
@@ -40,17 +40,18 @@ spec:
 EOF
 ```
 
-2. 使用htpasswd创建密码
+2. 使用 htpasswd 创建密码
 
 ```bash
 # apt install -y apache2-utils
 # htpasswd -Bbn myusername password20GAt > htpasswd.txt
 # microk8s.kubectl create secret generic registry-auth-pass --from-file=./htpasswd.txt
 # microk8s.kubectl describe secret registry-auth-pass
-# microk8s.kubectl get secret registry-auth-pass -o yaml #查看密码
+#
+ registry-auth-pass -o yaml #查看密码
 ```
 
-3. 创建部署任务，使用docker镜像_registry:2_, 增加_env_设置启用http认证
+3. 创建部署任务，使用 docker 镜像*registry:2*, 增加*env*设置启用 http 认证
 
 ```bash
 # cat <<EOF | microk8s.kubectl apply -f -
@@ -98,7 +99,7 @@ spec:
 EOF
 ```
 
-4. 创建服务，配置ingress
+4. 创建服务，配置 ingress
 
 ```bash
 #cat <<EOF | microk8s.kubectl apply -f -
@@ -133,7 +134,7 @@ spec:
 EOF
 ```
 
-5. 使用配置。在docker客户端配置密码
+5. 使用配置。在 docker 客户端配置密码
 
 ```
 # docker login registry.example.com
@@ -141,10 +142,10 @@ Username:
 Password:
 ```
 
-6. 配置k8s使用搭建的private registry.
+6. 配置 k8s 使用搭建的 private registry.
 
 ```bash
-# microk8s.kubectl create secret docker-registry private-registry-auth --docker-server=registry.example.com --docker-username=myusername --docker-password=password20GAt
+# microk8s.kubectl create secret docker-registry private-registry-auth --docker-server=registry.wandaijin.com --docker-username=myusername --docker-password=password20GAt
 # cat <<EOF | microk8s.kubectl apply -f -
 apiVersion: v1
 kind: Pod
@@ -160,6 +161,7 @@ EOF
 ```
 
 ### 参考资料
+
 https://docs.docker.com/registry/deploying/
 https://kubernetes.io/docs/concepts/configuration/secret/
 https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
